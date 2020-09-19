@@ -68,6 +68,7 @@ $("#cityweather").on("click", function (event) {
             $("#fourth-day-forecast").empty();
             $("#fifth-day-forecast").empty();
 
+
             console.log(response);
             let UVIndex = $("<p>").text("UV INdex: " + response.value);
             $("#weather-view").append(location, temperature, humidity, windSpeed, UVIndex);
@@ -78,7 +79,17 @@ $("#cityweather").on("click", function (event) {
                 method: "GET"
             }).then(function (response) {
 
-               
+                let reducedArray = response.list.filter(function (element) {
+
+                    let dateValue = element.dt_txt.split(" ");
+                    console.log(dateValue[1]);
+                    if (dateValue[1] === "03:00:00") {
+                        return dateValue[1];
+                    }
+
+                })
+
+                console.log(reducedArray);
                 let tempK1 = response.list[4].main.temp;
                 let tempF1 = (tempK1 - 273.15) * 1.80 + 32;
                 let weatherIcon1 = response.list[4].weather[0].icon;
