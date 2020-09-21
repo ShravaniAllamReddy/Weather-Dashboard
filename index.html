@@ -40,16 +40,25 @@
                 </div>
 
             </div>
-            <div class="col-sm-9 col-lg-9">
-                <div class="card" style="display: none;">
-                    <div class="card-body">
-                        <!-- We'll be dumping our JSON contents in here -->
-                        <div id="weather-view"></div>
 
-                    </div>
-                   <h4 class="ml-3"> 5-Day Forecast: </h4>
-                    <div class="card-deck">
-                        <div class="card"  style="background-color:blue; color: white;">
+            <div class="col-sm-9 col-lg-9" id="weatherInfo" style="display: none;">
+
+                <!-- We'll be dumping our JSON contents in here -->
+                <div id="weather-view">
+
+                </div>
+
+                <h4> 5-Day Forecast: </h4>
+
+                <div id="fivedayforecast" class="row">
+
+                </div>
+                <!-- <div class="card" id="card" style="background-color:blue; color: white;">
+                        <div class="card-body" id="cardBody">
+                        </div>
+                    </div> -->
+
+                <!-- <div class="card"  style="background-color:blue; color: white;">
                             <div class="card-body">
                                 <div id="first-day-forecast"></div>
 
@@ -78,14 +87,11 @@
                             <div class="card-body">
                                 <div id="fifth-day-forecast"></div>
                             </div>
-                        </div>
-                    </div>
+                        </div>-->
 
 
-                </div>
 
             </div>
-
         </div>
     </div>
 
