@@ -24,7 +24,7 @@ $("#cityweather").on("click", function (event) {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-       
+
         $("#weather-view").empty();
 
         $("#weatherInfo").css("display", "block");
@@ -64,14 +64,34 @@ $("#cityweather").on("click", function (event) {
             method: "GET"
         }).then(function (response) {
 
-
+            // let UVValue = response.value;
+            let UVValue = 2.88;
             console.log(response);
-            let UVIndex = $("<p>").text("UV Index: " + response.value);
+            let UVIndex = $("<p>").text(UVValue).addClass("d-inline");
+            let UVIndexDiv = $("<p>").text("UV Index: ");
+            UVIndexDiv.append(UVIndex);
+            // console.log(UVIndexDiv);
+            if (UVValue >= 0 && UVValue < 3) {
+                UVIndex.css("background-color","green");
+                UVIndex.css("color","white");
+                // UVIndex.addClass("bg-success")
+            }
+            else if (UVValue > 2 && UVValue < 8) {
+                UVIndex.css("background-color","yellow");
+                // UVIndex.addClass("bg-warning")
+            }
+            else if (UVValue > 8 && UVValue < 20) {
+                UVIndex.css("background-color","red");
+                UVIndex.css("color","white");
+                // UVIndex.addClass("bg-danger");
+            }
             let card = $("<div>").addClass("card");
             let cardBody = $("<div>").addClass("card-body");
-            cardBody.append(location, temperature, humidity, windSpeed, UVIndex);
+            cardBody.append(location, temperature, humidity, windSpeed, UVIndexDiv);
+
             card.append(cardBody);
             $("#weather-view").append(card);
+
 
             let forecastURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
             $.ajax({
@@ -105,7 +125,8 @@ $("#cityweather").on("click", function (event) {
                     card.append(cardBody);
                     card.css("background-color", "blue");
                     card.css("color", "white");
-
+                   
+                
                     $("#fivedayforecast").append(card);
                 }
 
