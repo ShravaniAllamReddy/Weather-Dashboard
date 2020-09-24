@@ -29,8 +29,7 @@ $(document).ready(function () {
             //console.log(citiesSaved);
             cityDiv.addClass("list-group-item");
             $(".append-list").append(cityDiv);
-            // $(document).on("click", ".list-group-item", weatherForecast);
-
+          
             $(".list-group-item").on("click", function (event) {
 
                 event.preventDefault();
