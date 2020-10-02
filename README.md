@@ -1,6 +1,6 @@
-# Weather-Dashboard
+# WeatherForecast-DashBoard
 
-<img src= "images/weatherdashboard.JPG" alt ="weather-dashboard">
+<img src= "images/weather.JPG" alt ="weather-dashboard">
 
 
 ## Description
