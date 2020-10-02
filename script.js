@@ -1,46 +1,37 @@
 // This .on("click") function will trigger the AJAX Call
 $(document).ready(function () {
-    let city = "";
-    let locationsSearched = [];
+
+    let cities = JSON.parse(window.localStorage.getItem("cities")) || [];
 
     $("#cityweather").on("click", function (event) {
-        let cityName = $("#city-input").val().trim();
-        // Preventing the submit button from trying to submit the form
         event.preventDefault();
-        weatherForecast(cityName);
-        searchHistory();
-
+        let cityValue = $("#city-input").val().trim();
+        // console.log(cityValue);    
+        $("#city-input").val("");
+        weatherForecast(cityValue);
     });
 
-    function searchHistory() {
-        let citiesSaved = [];
-        // Here we grab the text from the input box
-        city = $("#city-input").val().trim();
-        // console.log(city);
-        locationsSearched.push(city);
-        $("#city-input").val("");
-        // console.log(locationsSearched);
-        localStorage.setItem("cities", JSON.stringify(locationsSearched));
-        citiesSaved = JSON.parse(localStorage.getItem("cities"));
-        let cityDiv = $("<li>");
-        for (let i = 0; i < citiesSaved.length; i++) {
 
-            cityDiv.text(citiesSaved[i]);
-            //console.log(citiesSaved);
-            cityDiv.addClass("list-group-item");
-            $(".append-list").append(cityDiv);
-          
-            $(".list-group-item").on("click", function (event) {
+    $(".append-list").on("click", "li", function () {
+        weatherForecast($(this).text());
+    });
 
-                event.preventDefault();
-                let cityInput = $(this).text().trim();
-
-                //console.log(cityInput);
-
-                weatherForecast(cityInput);
-            });
-        }
+    if (cities.length > 0) {
+        //console.log(cities);
+        weatherForecast(cities[cities.length - 1]);
     }
+    for (let i = 0; i < cities.length; i++) {
+        appendCity(cities[i]);
+        //console.log(cities[i]);
+    }
+
+    function appendCity(city) {
+        let cityDiv = $("<li>");
+        cityDiv.text(city);
+        cityDiv.addClass("list-group-item list-group-item-action");
+        $(".append-list").append(cityDiv);
+    }
+
 
     // This function gets the weather and 5day forecast from openweatherAPI for a searched location
     function weatherForecast(city) {
@@ -49,16 +40,23 @@ $(document).ready(function () {
         // Here we construct our URL
         let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 
+
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
 
+            if (cities.indexOf(city) === -1) {
+                cities.push(city);
+                window.localStorage.setItem("cities", JSON.stringify(cities));
+                appendCity(city);
+            }
 
-            $("#weatherInfo").css("display", "block");
-            $(".searchList").css("display", "block");
+            $("#weather").css("display", "block");
+            $(".card").css("display", "block");
 
-            //console.log(response);
+
+            console.log(response);
             let KTemp = response.main.temp;
 
             //Convert the temp to fahrenheit
@@ -75,8 +73,8 @@ $(document).ready(function () {
             let temperature = $("<p>").html("Temperature: " + Ftemp.toFixed(2) + "&#176;F");
 
             let humidity = $("<p>").text("Humidity: " + response.main.humidity + "%");
-            //converts the windspeed to MPH
-            let windSpeed = $("<p>").html("Wind Speed: " + (response.wind.speed * 0.62).toFixed(2) + " MPH");
+            //converts windspeed from meters/second to Miles per hour
+            let windSpeed = $("<p>").html("Wind Speed: " + ((response.wind.speed) * 2.236937).toFixed(2) + " MPH");
 
             let latitude = response.coord.lat;
 
@@ -171,6 +169,5 @@ $(document).ready(function () {
         })
     }
 
-
-})
+});
 
