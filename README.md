@@ -32,4 +32,4 @@ This Application retrieves current and future conditions for selected cities usi
 
 ## Deployed URL of the application
 
-https://shravaniallamreddy.github.io/Weather-Dashboard/
+https://shravaniallamreddy.github.io/WeatherForecast-Dashboard/
