@@ -1,4 +1,4 @@
-# WeatherForecast-DashBoard
+# Weather-Report
 
 <img src= "images/weather.JPG" alt ="weather-dashboard">
 
@@ -20,6 +20,8 @@ This Application retrieves current and future conditions for selected cities usi
     * Then you are presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
 * When you click on a city in the search history
     * Then you are again presented with current and future conditions for that city
+* When you open the weather dashboard
+    * Then you are presented with the last searched city forecast
 
 
 ## Sources Referred
@@ -32,4 +34,4 @@ This Application retrieves current and future conditions for selected cities usi
 
 ## Deployed URL of the application
 
-https://shravaniallamreddy.github.io/WeatherForecast-Dashboard/
+https://shravaniallamreddy.github.io/WeatherForecast-Report/
